@@ -1,4 +1,6 @@
 import { Bounded } from '@/components/Bounded'
+import { ButtonLink } from '@/components/ButtonLink'
+import { Heading } from '@/components/Heading'
 import { Content } from '@prismicio/client'
 import { PrismicNextImage, PrismicNextLink } from '@prismicio/next'
 import { PrismicRichText, SliceComponentProps } from '@prismicio/react'
@@ -24,14 +26,29 @@ const index = ({slice}: TextAndImageProps): JSX.Element => {
       )}
     >
 
+      <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2 md:gap-24">
+        <div className={clsx(  "flex flex-col items-center gap-8 text-center md:items-start md:text-left",
+            slice.variation === "imageOnLeft" && "md:order-2"  )} >
 
-      {slice.primary.theme}
+          <Heading size='lg' as="h2" >
+            <PrismicRichText field={slice.primary.heading}/>
+          </Heading>
 
-      <PrismicRichText field={slice.primary.heading}/>
-      <PrismicRichText field={slice.primary.body}/>
-      <PrismicNextLink field={slice.primary.button}/>
-      <PrismicNextImage field={slice.primary.background_image}/>
-      <PrismicNextImage field={slice.primary.foreground_image}/>
+          <div className="max-w-md text-lg leading-relaxed">
+            <PrismicRichText field={slice.primary.body}/>
+          </div>
+
+          <ButtonLink field={slice.primary.button} color={theme === 'Lime' ? 'orange' : 'lime'}>
+            {slice.primary.button.text}
+          </ButtonLink>
+        </div>
+
+
+          <PrismicNextImage field={slice.primary.background_image}/>
+          <PrismicNextImage field={slice.primary.foreground_image}/>
+
+      </div>
+
     </Bounded>
   )
 }
