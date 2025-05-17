@@ -1,3 +1,9 @@
 export async function Footer() {
-  return <div></div>;
+  return (
+    <footer>
+      Footer
+    </footer>
+  )
+
+
 }
