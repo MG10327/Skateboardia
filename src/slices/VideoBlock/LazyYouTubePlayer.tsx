@@ -26,7 +26,7 @@ export function LazyYouTubePlayer({ youTubeID }: VideoProps) {
     if (currentContainerRef) {
       observer.observe(currentContainerRef);
     }
-
+ 
     return () => {
       if (currentContainerRef) {
         observer.unobserve(currentContainerRef);
