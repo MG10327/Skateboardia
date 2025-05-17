@@ -21,7 +21,7 @@ const index = ({slice}: TextAndImageProps): JSX.Element => {
       className={clsx(
         slice.primary.theme === 'Blue' && 'bg-texture bg-brand-blue text-white',
         slice.primary.theme === 'Orange' && 'bg-texture bg-brand-orange text-white',
-        slice.primary.theme === 'Navy' && 'bg-texture bg-brand-Navy text-white',
+        slice.primary.theme === 'Navy' && 'bg-texture bg-brand-Navy ',
         slice.primary.theme === 'Lime' && 'bg-texture bg-brand-lime',
       )}
     >
