@@ -13,11 +13,22 @@ export async function Footer() {
   return (
     <footer className="bg-texture bg-zinc-900 text-white overflow-hidden">
       <div className="relative h-[75vh] ~p-10/16 md:aspect-auto">
-        <PrismicNextImage field={settings.data.footer_image} alt='' fill className="object-cover" width={1200} />
       {/* Image */}
+        <PrismicNextImage field={settings.data.footer_image} alt='' fill className="object-cover" width={1200} />
+
       {/* Physics Boards */}
+      <Logo  className="pointer-events-none relative h-20 mix-blend-exclusion md:h-28"/>
       </div>
 
+      <Bounded >
+        <ul>
+          {settings.data.navigation.map((item) => (
+            <li key={item.link.text}>
+              <PrismicNextLink field={item.link} />
+            </li>
+          ))}
+        </ul>
+      </Bounded>
       {/* List of links */}
     </footer>
   )
