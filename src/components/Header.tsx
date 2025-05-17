@@ -3,6 +3,7 @@ import { createClient } from "@/prismicio";
 import Link from "next/link";
 import { ButtonLink } from "./ButtonLink";
 import { Logo } from "./Logo";
+import { PrismicNextLink } from "@prismicio/next";
 
 export async function Header() {
   const client = createClient();
@@ -17,10 +18,12 @@ export async function Header() {
         <Logo className="text-brand-purple ~h-12/20" />
       </Link>
       <nav aria-label="Main" className="col-span-full row-start-2 md:col-span-1 md:col-start-2 md:row-start-1" >
-        <ul>
-          <li>
-            Boards
-          </li>
+        <ul className="flex flex-wrap item-center justify-center gap-8">
+          {settings.data.navigation.map((item) => (
+            <li key={item.link.text}>
+              <PrismicNextLink field={item.link}/>
+            </li>
+          ))}
         </ul>
       </nav>
 
