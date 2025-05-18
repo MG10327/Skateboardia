@@ -67,7 +67,7 @@ function Scene({
 
     gsap.to(containerRef.current.position, {
         x: 0.2,
-        duration: 3,
+        duration: 2,
         repeat: -1,
         yoyo: true,
         ease: 'sine.inOut'
@@ -75,10 +75,10 @@ function Scene({
 
     gsap.to(originRef.current.rotation, {
         y: Math.PI / 64,
-        duration: 3,
+        duration: 2,
         repeat: -1,
         yoyo: true,
-        ease: 'since.inOut'
+        ease: 'sine.inOut'
     })
   })
 
