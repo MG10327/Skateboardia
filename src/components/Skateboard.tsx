@@ -6,6 +6,7 @@ import * as THREE from 'three'
 import React, { useMemo, useRef } from 'react'
 import { useGLTF, useTexture } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
+import { useFrame } from '@react-three/fiber';
 
 
 type SkateboardProps = {
@@ -46,7 +47,37 @@ export function Skateboard({
   constantWheelSpin = false,
   pose = "upright",
 }: SkateboardProps) {
+
+  const wheelRefs = useRef<THREE.Object3D[]>([])
+
   const { nodes, materials } = useGLTF('/skateboard.gltf') as GLTFResult
+
+    // Wheel Textures
+  const wheelTextures = useTexture(wheelTextureURLs)
+  wheelTextures.forEach((texture) => {
+    texture.flipY = false,
+    texture.colorSpace = THREE.SRGBColorSpace // makes colors look more vibrant and alive.
+  })
+  const wheelTextureIndex = wheelTextureURLs.findIndex(
+    (url) => url === wheelTextureURL
+  )
+
+  const wheelTexture = wheelTextures[wheelTextureIndex]
+
+  // Deck textures
+
+  const deckTextures = useTexture(deckTextureURLs)
+  deckTextures.forEach((texture) => {
+    texture.flipY = false,
+    texture.colorSpace = THREE.SRGBColorSpace // makes colors look more vibrant and alive.
+  })
+  const deckTextureIndex = deckTextureURLs.findIndex(
+    (url) => url === deckTextureURL
+  )
+
+  const deckTexture = wheelTextures[deckTextureIndex]
+
+
 
   const gripTapeDiffuse = useTexture("/skateboard/griptape-diffuse.webp")
   const gripTapeRoughness = useTexture("/skateboard/griptape-roughness.webp")
@@ -109,8 +140,6 @@ export function Skateboard({
     [truckColor]
   );
 
-  const deckTexture = useTexture('/skateboard/Deck.webp')
-  deckTexture.flipY = false // undoes blender texture flipping
 
   const deckMaterial = useMemo(
     () =>
@@ -121,9 +150,7 @@ export function Skateboard({
     [truckColor]
   );
 
-  const wheelTexture = useTexture('/skateboard/SkateWheel1.png')
 
-  wheelTexture.flipY = false // blender textures usually get flipped . We undo that to make it render as intended.
 
   const wheelMaterial = useMemo(
     () =>
@@ -133,6 +160,28 @@ export function Skateboard({
       }),
     [truckColor]
   );
+
+  // Add Wheel Refs
+  const addToWheelRefs = (ref: THREE.Object3D | null) => {
+    if(ref && !wheelRefs.current.includes(ref)){
+      wheelRefs.current.push(ref)
+    }
+  }
+
+  useFrame(() => {
+    if(!wheelRefs.current || !constantWheelSpin) return
+    for (const wheel of wheelRefs.current){
+      wheel.rotation.x += .2
+    }
+  })
+
+  useEffect(() => {
+    if(!wheelRefs.current || constantWheelSpin) return
+    for (const wheel of wheelRefs.current){
+      // GSAP rotation
+    }
+  }, [constantWheelSpin])
+
 
 
   return (
@@ -153,6 +202,7 @@ export function Skateboard({
           geometry={nodes.Wheel1.geometry}
           material={wheelMaterial}
           position={[0.238, 0.086, 0.635]}
+          ref={addToWheelRefs}
         />
         <mesh
           name="Wheel2"
@@ -161,32 +211,7 @@ export function Skateboard({
           geometry={nodes.Wheel2.geometry}
           material={wheelMaterial}
           position={[-0.237, 0.086, 0.635]}
-        />
-        <mesh
-          name="Deck"
-          castShadow
-          receiveShadow
-          geometry={nodes.Deck.geometry}
-          material={deckMaterial}
-          position={[0, 0.271, -0.002]}
-        />
-        <mesh
-          name="Wheel4"
-          castShadow
-          receiveShadow
-          geometry={nodes.Wheel4.geometry}
-          material={wheelMaterial}
-          position={[-0.238, 0.086, -0.635]}
-          rotation={[Math.PI, 0, Math.PI]}
-        />
-        <mesh
-          name="Bolts"
-          castShadow
-          receiveShadow
-          geometry={nodes.Bolts.geometry}
-          material={boltMaterial}
-          position={[0, 0.198, 0]}
-          rotation={[Math.PI, 0, Math.PI]}
+          ref={addToWheelRefs}
         />
         <mesh
           name="Wheel3"
@@ -196,7 +221,37 @@ export function Skateboard({
           material={wheelMaterial}
           position={[0.237, 0.086, -0.635]}
           rotation={[Math.PI, 0, Math.PI]}
+          ref={addToWheelRefs}
         />
+        <mesh
+          name="Wheel4"
+          castShadow
+          receiveShadow
+          geometry={nodes.Wheel4.geometry}
+          material={wheelMaterial}
+          position={[-0.238, 0.086, -0.635]}
+          rotation={[Math.PI, 0, Math.PI]}
+          ref={addToWheelRefs}
+        />
+        <mesh
+          name="Deck"
+          castShadow
+          receiveShadow
+          geometry={nodes.Deck.geometry}
+          material={deckMaterial}
+          position={[0, 0.271, -0.002]}
+        />
+
+        <mesh
+          name="Bolts"
+          castShadow
+          receiveShadow
+          geometry={nodes.Bolts.geometry}
+          material={boltMaterial}
+          position={[0, 0.198, 0]}
+          rotation={[Math.PI, 0, Math.PI]}
+        />
+
         <mesh
           name="Baseplates"
           castShadow

@@ -25,14 +25,13 @@ function Scene(){
             <OrbitControls />
             <Environment files='hdr/warehouse-256.hdr' background />
             <Skateboard
-                wheelTextureURLs={[wheelTextureURL]}
-                wheelTextureURL={wheelTextureURL}
-                deckTextureURLs={[deckTextureURL]}
-                deckTextureURL={deckTextureURL}
-                truckColor={truckColor}
-                boltColor={boltColor}
-                constantWheelSpin
-
+              wheelTextureURLs={[wheelTextureURL]}
+              wheelTextureURL={wheelTextureURL}
+              deckTextureURLs={[deckTextureURL]}
+              deckTextureURL={deckTextureURL}
+              truckColor={truckColor}
+              boltColor={boltColor}
+              constantWheelSpin
             />
             <ContactShadows opacity={0.6} />
         </group>
