@@ -1,7 +1,9 @@
-"use client";
 
-import { createContext, ReactNode, useContext, useMemo, useState } from "react";
-import { Content } from "@prismicio/client";
+'use client'
+
+import { Content } from "@prismicio/client"
+import { createContext, ReactNode, useContext, useMemo, useState } from "react"
+
 
 type CustomizerControlsContext = {
   selectedWheel?: Content.BoardCustomizerDocumentDataWheelsItem;
@@ -20,8 +22,9 @@ const defaultContext: CustomizerControlsContext = {
   setTruck: () => {},
   setBolt: () => {},
 };
+// now we make our variable for the controls context
+const CustomizerControlsContext = createContext(defaultContext)
 
-const CustomizerControlsContext = createContext(defaultContext);
 
 type CustomizerControlsProviderProps = {
   defaultWheel?: Content.BoardCustomizerDocumentDataWheelsItem;
@@ -30,6 +33,8 @@ type CustomizerControlsProviderProps = {
   defaultBolt?: Content.BoardCustomizerDocumentDataMetalsItem;
   children?: ReactNode;
 };
+
+// now we'll make our provider function for our context
 
 export function CustomizerControlsProvider({
   defaultWheel,
