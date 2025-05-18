@@ -242,10 +242,10 @@ function Scene({
         scale={[0.2, 0.2, 0.2]}
       >
         <Html
-          wrapperClass="pointer-events-none"
-          transform
-          zIndexRange={[1, 0]}
-          occlude="blending"
+            transform
+            zIndexRange={[1, 0]}
+            occlude="blending"
+            wrapperClass="pointer-events-none"
         >
           <WavyPaths />
         </Html>
