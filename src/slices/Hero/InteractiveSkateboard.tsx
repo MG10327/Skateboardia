@@ -7,7 +7,7 @@ import React, { Suspense } from 'react'
 
 type Props = {}
 
-export default function InteractiveSkateboard({}: Props) {
+export default function InteractiveSkateboard({ defaultTextureURL, wheelTextureURL, truckColor, boltColor}: Props) {
   return (
     <div className='absolute inset-0 z-10 flex items-center justify-center'>
         <Canvas className='min-h-[60rem] w-full' camera={{position: [1.5, 1, 1.4], fov: 55}}>
@@ -24,7 +24,16 @@ function Scene(){
         <group>
             <OrbitControls />
             <Environment files='hdr/warehouse-256.hdr' background />
-            <Skateboard />
+            <Skateboard
+                wheelTextureURLs={[wheelTextureURL]}
+                wheelTextureURL={wheelTextureURL}
+                deckTextureURLs={[deckTextureURL]}
+                deckTextureURL={deckTextureURL}
+                truckColor={truckColor}
+                boltColor={boltColor}
+                constantWheelSpin
+
+            />
             <ContactShadows opacity={0.6} />
         </group>
     )

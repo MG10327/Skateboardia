@@ -14,10 +14,21 @@ import { TallLogo } from './TallLogo';
 import InteractiveSkateboard from './InteractiveSkateboard';
 
 
+const DEFAULT_DECK_TEXTURE = '/skateboard/Deck.webp'
+const DEFAULT_WHEEL_TEXTURE = '/skateboard/SkateWheel1.png'
+const DEFAULT_TRUCK_COLOR = '#6F6E6A'
+const DEFAULT_BOLT_COLOR = '#6F6E6A'
+
+
 export type HeroProps = SliceComponentProps<Content.HeroSlice>
 
 
 const Hero = ({slice}: HeroProps) => {
+  const deckTextureURL = asImageSrc(slice.primary.skateboard_deck_texture) || DEFAULT_DECK_TEXTURE
+  const wheelTextureURL = asImageSrc(slice.primary.skateboard_deck_texture) || DEFAULT_WHEEL_TEXTURE
+  const truckColor = asImageSrc(slice.primary.skateboard_deck_texture) || DEFAULT_TRUCK_COLOR
+  const boltColor = asImageSrc(slice.primary.skateboard_deck_texture) || DEFAULT_BOLT_COLOR
+
   return (
     <Bounded
       data-slice-type={slice.slice_type}
@@ -48,7 +59,13 @@ const Hero = ({slice}: HeroProps) => {
         {slice.primary.button.text}
       </ButtonLink>
 
-      <InteractiveSkateboard />
+      <InteractiveSkateboard
+        defaultTextureURL={deckTextureURL}
+        wheelTextureURL={wheelTextureURL}
+        truckColor={truckColor}
+        boltColor={boltColor}
+      />
+
     </Bounded>
   )
 }
