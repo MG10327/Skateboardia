@@ -61,25 +61,26 @@ function Scene({
 
   const { camera } = useThree();
 
+  // we're gonna animate the board to move closer and further away as if it were moving
   useEffect(() => {
-    if (!containerRef.current || !originRef.current) return;
+    if(!containerRef.current || !originRef.current) return // stops if the refs don't exist that we're going to animat
 
     gsap.to(containerRef.current.position, {
-      x: 0.2,
-      duration: 3,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut",
-    });
+        x: 0.2,
+        duration: 2,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut'
+    })
 
     gsap.to(originRef.current.rotation, {
-      y: Math.PI / 64,
-      duration: 3,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut",
-    });
-  }, []);
+        y: Math.PI / 64,
+        duration: 2,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut'
+    })
+  })
 
   useEffect(() => {
     camera.lookAt(new THREE.Vector3(-0.2, 0.15, 0));
@@ -242,10 +243,10 @@ function Scene({
         scale={[0.2, 0.2, 0.2]}
       >
         <Html
-          wrapperClass="pointer-events-none"
-          transform
-          zIndexRange={[1, 0]}
-          occlude="blending"
+            transform
+            zIndexRange={[1, 0]}
+            occlude="blending"
+            wrapperClass="pointer-events-none"
         >
           <WavyPaths />
         </Html>

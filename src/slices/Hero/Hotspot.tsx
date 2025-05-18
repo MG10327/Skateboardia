@@ -3,7 +3,7 @@ import { useRef } from "react";
 import * as THREE from "three";
 
 interface HotspotProps {
-  position: [number, number, number];
+  position: [number, number, number]; // position wil be an array of three numbers
   isVisible: boolean;
   color?: string;
 }
@@ -11,28 +11,29 @@ interface HotspotProps {
 export function Hotspot({
   position,
   isVisible,
-  color = "#E6FC6A",
+  color = "#E6FC6A", // default color if one isn't passed in
 }: HotspotProps) {
-  const hotspotRef = useRef<THREE.Mesh>(null);
+  const hotspotRef = useRef<THREE.Mesh>(null) // default value of null
+
 
   return (
     <Billboard position={position} follow={true}>
+      {/* An element that will always face the camera so the user can always see the hotspots that will mark animations as existing. */}
       <mesh ref={hotspotRef} visible={isVisible}>
-        <circleGeometry args={[0.02, 32]} />
+        <circleGeometry args={[.02, 32]} />
         <meshStandardMaterial color={color} transparent opacity={1} />
       </mesh>
 
-      <mesh
-        visible={isVisible}
+      <mesh visible={isVisible}
         onPointerOver={() => {
-          document.body.style.cursor = "pointer";
+          document.body.style.cursor = "pointer"
         }}
         onPointerOut={() => {
-          document.body.style.cursor = "default";
+          document.body.style.cursor = 'default'
         }}
       >
-        <circleGeometry args={[0.03, 32]} />
-        <meshBasicMaterial color={color} />
+        <circleGeometry args={[.02, 32]} />
+        <meshStandardMaterial color={color} transparent opacity={1} />
       </mesh>
     </Billboard>
   );
