@@ -168,7 +168,7 @@ export function Skateboard({
       gsap.to(wheel.rotation, {
         x: "-=30",
         duration: 2.5,
-        ease: 'circ.out'
+        ease: "circ.out",
       });
     }
   }, [constantWheelSpin, wheelTextureURL]);
